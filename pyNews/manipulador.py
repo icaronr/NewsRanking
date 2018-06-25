@@ -1,4 +1,5 @@
 #! python 
+# -*- coding: utf-8 -*-
 import pandas as pd 
 import json
 import xlwt
@@ -6,31 +7,37 @@ import xlsxwriter
 import os
 from datetime import datetime, timedelta
 
+# carrega a lista de termos do arquivo com os termos de busca
 def carregaBusca():
     termos = pd.read_excel('source/termos.xlsx')
     listaTermos = termos['Nome'].tolist()
     return listaTermos
 
+# converte os arquivos JSON gerados pela resposta da api em arquivos XLSX.
 def enchePlanilha(termo):
     nomejson = termo + '.json'
     print '[manipulador][enchePlanilha] abrindo ' + nomejson
-    
+    # abre o JSON 
     jason = json.loads(open(nomejson).read())
     #print json.dumps(jason, indent=4, sort_keys=True)
-    print "[manipulador][enchePlanilha] JSON CARREGADO"
-    print str(jason)
+    print "[manipulador][enchePlanilha] JSON CARREGADO -> " + nomejson
+    # recebe os artigos contidos no JSON
     jayson = pd.DataFrame(jason['articles'])
+    # conta o numero de colunas
     numcolunas = jayson.shape[0]
-    #print numcolunas
+    # lista vazia que contém o termo buscado
     nomedoenca = []
+    # para cada elemento, adiciona o termo buscado na lista
     for x in range(0, numcolunas):
         nomedoenca.append(termo)
-    jayson['Nome Doenca'] = nomedoenca
+    # cria uma coluna com o nome do termo.
+    jayson['Termo Buscado'] = nomedoenca
+    # salva o arquivo como XLSX
     nomearquivo = termo + '.xlsx'
     writer = pd.ExcelWriter(nomearquivo)
     jayson.to_excel(writer,'Sheet1')
-    #jayson.to_excel('nomearquivo', index=False, engine='openpyxl')
     
+# Faz o mesmo que enchePlanilha, mas para o "top headlines" da API
 def encheTOP():
     jason = json.loads(open('top.json').read())
     jayson = pd.DataFrame(jason['articles'])
@@ -38,11 +45,11 @@ def encheTOP():
     nomedoenca = []
     for x in range(0, numcolunas):
         nomedoenca.append("TOP")
-    jayson['Nome Doenca'] = nomedoenca
+    jayson['Termo Buscado'] = nomedoenca
     writer = pd.ExcelWriter("top.xlsx")
     jayson.to_excel(writer,'Sheet1')
 
-    
+# junta todas as planilhas geradas em uma so
 def mergePlanilhas(planilhas):
     print "Juntando as planilhas em uma so"
     excels = [pd.ExcelFile(name) for name in planilhas]
@@ -59,7 +66,7 @@ def mergePlanilhas(planilhas):
     combined[0] = newIndex
     combined.set_index(0, inplace=True)
     #dupe recebe os resultados duplicados, comparacao e baseada na url [coluna 6]
-    # dupe/combined ->[0=index][1=author][2=description][3=publishedAt][4=source][5=title][6=url][7=urlToImage][8=Nome Doenca]
+    # dupe/combined ->[0=index][1=author][2=description][3=publishedAt][4=source][5=title][6=url][7=urlToImage][8=Termo Buscado]
     dupe = combined[combined.duplicated([6], keep=False)]
     #cria um dictionary(HashTable) para tratar os resultados duplicados
     resDuplicados = {}
@@ -120,6 +127,7 @@ def mergePlanilhas(planilhas):
     combined.to_excel(nomearquivo, header=False, index=False)
     print '[manipulador][mergePlanilhas] ' + str(combined)
 
+# remove os arquivos temporarios criados
 def limpaPasta():
     for name in os.listdir("."):
         if name.endswith(".xlsx"):

@@ -29,6 +29,7 @@ def classificaDados():
     abrirArquivo = 'saida/' + data + '_saida.xlsx'
     original = pd.read_excel(abrirArquivo)
     doencas_info = pd.read_excel('source/doencas_info.xlsx')
+    #print doencas_info.columns
     tipos_d = doencas_info[u'Nome da doenca']
     #para cada noticia no arquivo
     #print ['rank'] + original.columns
@@ -47,10 +48,10 @@ def classificaDados():
         #    descNormal = unicodedata.normalize('NFKD', description[i]).encode('ASCII', 'ignore').lower()   
         #print i, descNormal 
 
-    #print "TENTANDO ACHAR INDEX" + str(original[u'Nome Doenca'].index)
+    #print "TENTANDO ACHAR INDEX" + str(original[u'Termo Buscado'].index)
     achados = []
     achadosDesc = []
-    for index, caso in original[u'Nome Doenca'].iteritems():
+    for index, caso in original[u'Termo Buscado'].iteritems():
         prim = []
         descFound = []
         #print type(caso), caso
@@ -59,7 +60,7 @@ def classificaDados():
         #print type(doencas), doencas
         for d in doencas:
             if d == "TOP":
-                rankValue = 25
+                rankValue = 30
 
         normal = unicodedata.normalize('NFKD', titulo[index]).encode('ASCII', 'ignore').lower()         
         if type(description[index]) == float:
@@ -127,7 +128,7 @@ def classificaDados():
     #print cols
     myorder = [3,0,1,2,4,7,8,6,5]
     cols = [ cols[i] for i in myorder]
-    print cols
+    #print cols
     organizado = organizado[cols]
    # organizado.column_dimensions[u'url'].width = "450"
    # organizado.style.set_properties(color="white", align="right", width="200")

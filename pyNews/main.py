@@ -28,6 +28,8 @@ planilhas = scanfolder()
 # faz o merge das planilhas
 manipulador.mergePlanilhas(planilhas)
 
+# chama o método que faz a classificação dos dados
 rank.classificaDados()
 
+# Remove os arquivos temporários criados.
 manipulador.limpaPasta()

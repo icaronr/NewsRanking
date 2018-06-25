@@ -1,16 +1,18 @@
 #! python 
+# -*- coding: utf-8 -*-
 import requests
 from datetime import datetime, timedelta
 import json
 
 def busca(nomedoenca):
 
+    # date recebe a data de 2 dias atras
     date = datetime.strftime(datetime.now() - timedelta(2), '%Y-%m-%d')
     
-    #print(date)
-
+    # chave de acesso da API.
     apiKey = open("source/apiKey.txt").readline()
-
+    
+    # url da API onde serão feitas as buscas
     url = ('https://newsapi.org/v2/everything?'
         'q=' + nomedoenca + '&'
         'from='+ date + '&'
@@ -18,8 +20,8 @@ def busca(nomedoenca):
         'domains=globo.com,gazetaweb.globo.com,uol.com.br,terra.com.br,tribunadonorte.com.br,r7.com,ebc.com.br,abril.com.br,estadao.com.br,correiobraziliense.com.br&'
         'apiKey=' + apiKey)
 
-    print(url)
-    print " "
+    #print(url)
+    #print " "
     print '[getNews] buscando -> ' + nomedoenca
     response = requests.get(url)
     print "[getNews]Resposta do request recebida! salvando JSON.."
@@ -37,13 +39,3 @@ def buscaTOP():
     with open(nomearquivo, 'w') as outfile:
         json.dump(jason, outfile, indent=4, sort_keys=True)
 #print response.json()
-
-#Salvar o json em uma planilha excel .xlsx
-#melhor alternativa para nao utilizar um bd
-
-#carregar o excel para a memoria, um dicionario, por ser python(hashtable)
-
-#carregar os parametros de classificacao
-
-#rodar o algoritmo de classificacao e gerar uma nova tabela que vai conter as noticias ordenadas
-#alternativa: sobrescrever a primeira planilha

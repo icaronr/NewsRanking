@@ -1,6 +1,7 @@
 # NewsRanking
 
 Protótipo de um sistema de ranqueamento para notícias.
+As buscas são feitas por meio da API disponível em `https://newsapi.org/`.
 
 ## Instalando
 

@@ -1,7 +1,7 @@
 # NewsRanking
 
 Protótipo de um sistema de ranqueamento para notícias.
-As buscas são feitas por meio da API disponível em `https://newsapi.org/`.
+As buscas são feitas por meio da API disponível em [https://newsapi.org/](https://newsapi.org/).
 
 ## Requisitos
 
@@ -24,7 +24,7 @@ O arquivo `folder.bat` faz apenas a cópia da pasta, sem instalar as dependênci
 ## Utilizando
 
 Para utilizar o programa é necessário ter os termos de busca definidos no arquivo `termos.xlsx` e os critérios de classificação no arquivo `doencas_info.xlsx` contidos na pasta `pyNews/source`.
-Também é necessário um cadastro no site `https://newsapi.org/`. Com o cadastro efetuado, o site liberará uma chave de acesso, que deve ser inserida no arquivo `apiKey.txt`, também contido na pasta `pyNews/source`.
+Também é necessário um cadastro no site [https://newsapi.org/](https://newsapi.org/). Com o cadastro efetuado, o site liberará uma chave de acesso, que deve ser inserida no arquivo `apiKey.txt`, também contido na pasta `pyNews/source`.
 
 Para executar, rode o script `run.bat` contido na pasta `pyNews` ou execute por meio do atalho.   
 

@@ -14,14 +14,17 @@ $env:path >> path_backup.out
 
 setx PATH "$env:path;C:\python2" -m
 
-pip install -U pandas
-pip install -U requests
-pip install -U xlwt
-pip install -U xlrd
-pip install -U matplotlib
-pip install -U XlsxWriter
+python -m pip install -U pandas
+python -m pip install -U requests
+python -m pip install -U xlwt
+python -m pip install -U xlrd
+python -m pip install -U matplotlib
+python -m pip install -U XlsxWriter
 
 mkdir C:\NewsRanking
 
 xcopy /s /y "%~dp0\pyNews" "C:\NewsRanking\pyNews\"
+xcopy /s /y "%~dp0\NewsRanking.ico" "C:\NewsRanking\"
+xcopy /s /y "%~dp0\manual.pdf" "C:\NewsRanking\"
+xcopy /s /y "%~dp0\NewsRankingDesktop" "%UserProfile%\Desktop\NewsRanking\"
 

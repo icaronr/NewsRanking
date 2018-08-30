@@ -32,7 +32,8 @@ def busca(nomedoenca):
     #print json.dumps(jason, indent=4, sort_keys=True)
 
 def buscaTOP():
-    url = "https://newsapi.org/v2/top-headlines?country=br&category=health&apiKey=96aa6314cd3843ada8414cd9163549a7"
+    apiKey = open("source/apiKey.txt").readline()
+    url = "https://newsapi.org/v2/top-headlines?country=br&category=health&apiKey=" + apiKey
     response = requests.get(url)
     jason = response.json()
     nomearquivo = 'top.json' 

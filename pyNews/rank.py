@@ -18,35 +18,16 @@ def classificaDados():
     ranking = []
     #variaveis que serao utilizadas na formula
     rankValue = 0
-    #intCiencia = 0
-    #intPolitico = 0
-    #intEconomico = 0
-    #potDissemina = 0
-    #impSaudePubl = 0
-    #gravidade = 0
-    #intAtual = 0
     #abre os arquivos
     abrirArquivo = 'saida/' + data + '_saida.xlsx'
     original = pd.read_excel(abrirArquivo)
     doencas_info = pd.read_excel('source/doencas_info.xlsx')
     #print doencas_info.columns
     tipos_d = doencas_info[u'Nome da doenca']
-    #para cada noticia no arquivo
-    #print ['rank'] + original.columns
-    #print original.columns
+
     titulo = original[u'title']
-    # i -> index // t -> titulo
-    #for i, t in titulo.iteritems():
-        #normal = unicodedata.normalize('NFKD', t).encode('ASCII', 'ignore')
-        #print i, normal
+
     description = original[u'description']
-    #print description
-    #for i, d in description.iteritems():
-       # if type(description[i]) == float:
-        #    descNormal = "---"
-       # else:
-        #    descNormal = unicodedata.normalize('NFKD', description[i]).encode('ASCII', 'ignore').lower()   
-        #print i, descNormal 
 
     #print "TENTANDO ACHAR INDEX" + str(original[u'Termo Buscado'].index)
     achados = []
